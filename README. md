@@ -1,0 +1,33 @@
+# To-Do List App
+
+## Description
+A simple To-Do List application built using HTML, CSS, and JavaScript.
+
+## Features
+- Add tasks
+- Delete tasks
+- Mark tasks as completed
+
+## Technologies Used
+- HTML
+- CSS
+- JavaScript
+
+## How to Run
+1. Download the project
+2. Open index.html in browser
+
+## Project Structure
+todo-list-app/
+│
+├── index.html
+├── style.css
+├── script.js
+├── README.md
+└── screenshots/
+
+## Hosted Link
+Add your hosted link here
+
+## GitHub Repository
+Add your repository link here
