@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Premium To-Do App & Daily Consistency Tracker</title>
+
+  <!-- Google Fonts (Inter) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Phosphor Icons -->
+  <script src="https://unpkg.com/@phosphor-icons/web"></script>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Animated Background Shapes -->
+  <div class="background-shapes">
+    <div class="shape shape-1"></div>
+    <div class="shape shape-2"></div>
+    <div class="shape shape-3"></div>
+  </div>
+
+  <div class="dashboard-wrapper">
+    <!-- Top Bar with Header & Theme Toggle -->
+    <header class="dashboard-header">
+      <div class="header-left">
+        <h1>FlowState</h1>
+        <p class="subtitle" id="dateDisplay">Tuesday, May 26</p>
+      </div>
+      <div class="header-right">
+        <!-- Productivity Score Badge -->
+        <div class="score-badge" title="Your overall productivity score based on consistency and streaks">
+          <i class="ph ph-sparkles"></i>
+          <span class="score-label">Score:</span>
+          <span class="score-value" id="productivityScore">0</span>
+        </div>
+        <!-- Theme Toggle -->
+        <button id="themeToggle" class="icon-btn theme-toggle-btn" aria-label="Toggle Theme">
+          <i class="ph ph-sun" id="themeIcon"></i>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Grid Layout -->
+    <div class="dashboard-grid">
+      <!-- Left Column: Tasks Manager Card -->
+      <section class="card glass-panel tasks-card">
+        <div class="card-header">
+          <div class="header-title-group">
+            <i class="ph ph-check-square-offset card-icon"></i>
+            <h2>My Tasks</h2>
+          </div>
+          <span class="task-counter" id="activeTaskCounter">0 tasks</span>
+        </div>
+
+        <div class="input-section">
+          <div class="input-wrapper">
+            <i class="ph ph-plus icon-plus"></i>
+            <input type="text" id="taskInput" placeholder="Add a new task..." autocomplete="off">
+          </div>
+          <button id="addBtn" class="primary-btn">Add</button>
+        </div>
+
+        <div class="task-filters">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="active">Active</button>
+          <button class="filter-btn" data-filter="completed">Completed</button>
+        </div>
+
+        <ul id="taskList">
+          <!-- Dynamically generated tasks will go here -->
+        </ul>
+
+        <!-- Empty state placeholder for task list -->
+        <div class="empty-state" id="tasksEmptyState">
+          <div class="empty-icon-wrapper">
+            <i class="ph ph-scroll empty-icon"></i>
+          </div>
+          <p class="empty-text">No tasks left! Add one above to kick off your day.</p>
+        </div>
+      </section>
+
+      <!-- Right Column: Consistency Tracker Card -->
+      <section class="card glass-panel tracker-card">
+        <div class="card-header">
+          <div class="header-title-group">
+            <i class="ph ph-chart-line-up card-icon"></i>
+            <h2>Consistency Tracker</h2>
+          </div>
+        </div>
+
+        <!-- Streak Stats Display -->
+        <div class="tracker-stats-grid">
+          <!-- Streak card -->
+          <div class="stats-subcard streak-subcard">
+            <div class="subcard-header">
+              <span class="subcard-title">Current Streak</span>
+              <i class="ph ph-fire fire-icon animate-pulse"></i>
+            </div>
+            <div class="streak-value" id="streakCount">0 Days</div>
+            <div class="motivational-message" id="motivationalMessage">
+              Finish a task to start your streak today!
+            </div>
+          </div>
+
+          <!-- Progress subcard -->
+          <div class="stats-subcard progress-subcard">
+            <div class="subcard-header">
+              <span class="subcard-title">Today's Progress</span>
+              <i class="ph ph-chart-pie pie-icon"></i>
+            </div>
+            <div class="progress-container-flex">
+              <div class="progress-circle-wrapper">
+                <svg class="progress-circle" viewBox="0 0 100 100">
+                  <circle class="progress-circle-bg" cx="50" cy="50" r="40"></circle>
+                  <circle class="progress-circle-fill" id="progressCircleFill" cx="50" cy="50" r="40"></circle>
+                </svg>
+                <div class="progress-percentage-label" id="progressPercentage">0%</div>
+              </div>
+              <div class="progress-info">
+                <div class="stats-big-text" id="todayStatsText">0 / 0 Completed</div>
+                <div class="stats-subtext" id="progressStatusText">Empty list</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Weekly bar chart -->
+        <div class="subcard-full weekly-chart-card">
+          <div class="card-header-small">
+            <h3>Weekly Consistency</h3>
+            <span class="chart-subtitle">Last 7 rolling days</span>
+          </div>
+          <div class="weekly-chart" id="weeklyChart">
+            <!-- Dynamic bars will be generated here -->
+          </div>
+        </div>
+
+        <!-- Heatmap section -->
+        <div class="subcard-full heatmap-card">
+          <div class="heatmap-header">
+            <h3>Productivity Heatmap</h3>
+            <span class="heatmap-subtitle">Last 4 weeks</span>
+          </div>
+          <div class="heatmap-grid" id="heatmapGrid">
+            <!-- 28 Squares dynamically generated here -->
+          </div>
+          <div class="heatmap-legend">
+            <span>Less</span>
+            <div class="legend-square lvl-0" title="0% completion"></div>
+            <div class="legend-square lvl-1" title="1-25% completion"></div>
+            <div class="legend-square lvl-2" title="26-50% completion"></div>
+            <div class="legend-square lvl-3" title="51-75% completion"></div>
+            <div class="legend-square lvl-4" title="76-100% completion"></div>
+            <span>More</span>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
